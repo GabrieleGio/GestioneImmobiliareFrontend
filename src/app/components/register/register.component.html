@@ -1,0 +1,45 @@
+<h1 class="text-center">Benvenuto in Immobiliare!</h1>
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm w-50 mx-auto mt-5 bg-light">
+    <div class="mb-3">
+        <label class="form-label">Username:</label>
+        <input type="text" formControlName="username" class="form-control">
+        <div *ngIf="submitted && registerForm.controls.username.invalid" class="text-danger mt-1">
+            <small *ngIf="registerForm.controls.username.errors?.['required']">Username richiesto</small>
+            <small *ngIf="registerForm.controls.username.errors?.['minlength']">Minimo 3 caratteri</small>
+        </div>
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label">Email:</label>
+        <input type="email" formControlName="email" class="form-control">
+        <div *ngIf="submitted && registerForm.controls.email.invalid" class="text-danger mt-1">
+            <small *ngIf="registerForm.controls.email.errors?.['required']">Email richiesta</small>
+            <small *ngIf="registerForm.controls.email.errors?.['email']">Email non valida</small>
+        </div>
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label">Password:</label>
+        <input type="password" formControlName="password" class="form-control">
+        <div *ngIf="submitted && registerForm.controls.password.invalid" class="text-danger mt-1">
+            <small *ngIf="registerForm.controls.password.errors?.['required']">Password richiesta</small>
+            <small *ngIf="registerForm.controls.password.errors?.['minlength']">Minimo 6 caratteri</small>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Conferma Password:</label>
+        <input type="password" formControlName="confirmPassword" class="form-control">
+        <div *ngIf="submitted && registerForm.controls.confirmPassword.invalid" class="text-danger mt-1">
+            <small *ngIf="registerForm.controls.confirmPassword.errors?.['required']">Conferma password richiesta</small>
+            <small *ngIf="registerForm.controls.confirmPassword.errors?.['mismatch']">Le password non corrispondono</small>
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Register</button>
+
+    <div class="text-center mt-3">
+        <a routerLink="/login" class="btn btn-link">Sei già registrato? Accedi</a>
+    </div>
+    

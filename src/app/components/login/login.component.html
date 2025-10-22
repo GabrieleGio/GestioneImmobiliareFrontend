@@ -1,21 +1,28 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div>
-        <label>Email:</label>
-        <input type="email" formControlName="email">
-        <div *ngIf="submitted && loginForm.controls.email.invalid">
-          <small *ngIf="loginForm.controls.email.errors?.['required']">Email richiesta</small>
-          <small *ngIf="loginForm.controls.email.errors?.['email']">Email non valida</small>
-        </div>
-      </div>
+<h1 class="text-center">Benvenuto in Immobiliare!</h1>
 
-      <div>
-        <label>Password:</label>
-        <input type="password" formControlName="password">
-        <div *ngIf="submitted && loginForm.controls.password.invalid">
-          <small *ngIf="loginForm.controls.password.errors?.['required']">Password richiesta</small>
-          <small *ngIf="loginForm.controls.password.errors?.['minlength']">Minimo 6 caratteri</small>
-        </div>
-      </div>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm w-50 mx-auto mt-5 bg-light">
+  <div class="mb-3">
+    <label class="form-label">Email:</label>
+    <input type="email" formControlName="email" class="form-control">
+    <div *ngIf="submitted && loginForm.controls.email.invalid" class="text-danger mt-1">
+      <small *ngIf="loginForm.controls.email.errors?.['required']">Email richiesta</small>
+      <small *ngIf="loginForm.controls.email.errors?.['email']">Email non valida</small>
+    </div>
+  </div>
 
-      <button type="submit">Login</button>
-    </form>
+  <div class="mb-3">
+    <label class="form-label">Password:</label>
+    <input type="password" formControlName="password" class="form-control">
+    <div *ngIf="submitted && loginForm.controls.password.invalid" class="text-danger mt-1">
+      <small *ngIf="loginForm.controls.password.errors?.['required']">Password richiesta</small>
+      <small *ngIf="loginForm.controls.password.errors?.['minlength']">Minimo 6 caratteri</small>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Login</button>
+
+  <div class="text-center mt-3">
+    <a routerLink="/register" class="btn btn-link">Non hai un account? Registrati</a>
+  </div>
+
+</form>
