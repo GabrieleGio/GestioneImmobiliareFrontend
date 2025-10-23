@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { catchError, of } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
   submitted = false;
@@ -22,17 +22,10 @@ export class RegisterComponent {
     confirmPassword: new FormControl('', [Validators.required])
   }, { validators: passwordMatchValidator() });
 
-  private apiUrl = 'http://localhost:8080/utenti/register';
-
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
     this.submitted = true;
-
-    console.log('Form submitted');
-    console.log('Form valid:', this.registerForm.valid);
-    console.log('Form errors:', this.registerForm.errors);
-    console.log('Form values:', this.registerForm.value);
 
     if (this.registerForm.invalid) {
       console.log('Form non valido');
@@ -45,22 +38,15 @@ export class RegisterComponent {
       return;
     }
     
-    const registerData = {
-      username: this.registerForm.get('username')?.value,
-      email: this.registerForm.get('email')?.value,
-      password: this.registerForm.get('password')?.value,
-      confirmPassword: this.registerForm.get('confirmPassword')?.value,
-    };
+    const formValues = this.registerForm.value;
+    const username = formValues.username ?? '';
+    const email = formValues.email ?? '';
+    const password = formValues.password ?? '';
+    const confirmPassword = formValues.confirmPassword ?? '';
 
-    console.log('Invio dati al server:', registerData);
+    console.log('Invio dati al server per registrazione:', { username, email, password, confirmPassword });
 
-    this.http.post(this.apiUrl, registerData).pipe(
-      catchError((error) => {
-        console.error('Errore durante la registrazione', error);
-        alert('Errore durante la registrazione: ' + (error.error?.message || error.message));
-        return of(null);
-      })
-    ).subscribe({
+    this.authService.register(username, email, password, confirmPassword).subscribe({
       next: (response) => {
         if (response) {
           console.log('Utente registrato con successo', response);
@@ -70,6 +56,7 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.error('Errore durante la registrazione', err);
+        alert('Errore durante la registrazione: ' + (err?.message || 'Errore sconosciuto'));
       }
     });
   }
