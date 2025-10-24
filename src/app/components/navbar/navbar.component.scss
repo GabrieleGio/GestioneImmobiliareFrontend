@@ -1,0 +1,22 @@
+.navbar-brand {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  font-family: 'Roboto', sans-serif;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #ffc107 !important;
+}
+
+.navbar {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.navbar-spacer {
+  height: 80px;
+}

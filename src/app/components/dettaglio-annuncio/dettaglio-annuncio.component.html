@@ -1,0 +1,41 @@
+<app-navbar></app-navbar>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100" *ngIf="annuncio">
+  <div class="annuncio-card text-center">
+    <h1 class="text-primary fw-bold">{{ annuncio.immobile?.titolo }}</h1>
+    <img src="assets/images/placeholder.jpg" class="img-fluid rounded shadow-sm mb-3" alt="Immobile">
+    <p class="text-muted mb-3">📍 {{ annuncio.immobile?.indirizzo }}</p>
+
+    <h5>Prezzo:</h5>
+    <p class="fs-5 fw-semibold text-success">💶 {{ annuncio.immobile?.prezzo | currency:'EUR':'symbol':'1.0-0' }}</p>
+
+    <h5>Informazioni:</h5>
+    <ul class="list-unstyled">
+      <li>🏢 Tipologia: {{ annuncio.immobile?.tipologia }}</li>
+      <li>📏 Superficie: {{ annuncio.immobile?.superficie }} m²</li>
+      <li>🏢 Descrizione: {{ annuncio.immobile?.descrizione }}</li>
+      <li>🗓️ Pubblicato il: {{ annuncio.dataPubblicazione | date:'longDate' }}</li>
+    </ul>
+
+    <button class="btn btn-success mt-4" (click)="apriForm()">Fai una proposta</button>
+
+    <div *ngIf="showForm" class="mt-4 text-start">
+      <form [formGroup]="propostaForm" (ngSubmit)="inviaProposta()">
+        <div class="mb-3">
+          <label for="prezzo" class="form-label">Prezzo Offerto</label>
+          <input type="number" id="prezzo" class="form-control" formControlName="prezzoOfferto">
+          <div *ngIf="propostaForm.controls['prezzoOfferto'].invalid && propostaForm.controls['prezzoOfferto'].touched" class="text-danger">
+            Inserisci un prezzo valido
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="messaggio" class="form-label">Messaggio (opzionale)</label>
+          <textarea id="messaggio" class="form-control" formControlName="messaggio" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="propostaForm.invalid">Invia Proposta</button>
+      </form>
+    </div>
+  </div>
+</div>

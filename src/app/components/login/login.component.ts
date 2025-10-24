@@ -43,16 +43,13 @@ export class LoginComponent {
       return;
     }
 
-    console.log('Invio dati al server:', { email, password });
-
     this.authService.login(email, password).subscribe({
       next: (response: AuthResponseDTO | null) => {
         if (response) {
-          console.log('Utente loggato con successo', response);
+          console.log('Utente loggato con successo');
 
           localStorage.setItem('authToken', response.token);  // Salvataggio del token
 
-          alert('Login completato con successo!');
           this.router.navigate(['/home']);
         } else {
           alert('Errore nel login. Riprova.');

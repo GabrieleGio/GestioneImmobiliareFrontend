@@ -44,12 +44,10 @@ export class RegisterComponent {
     const password = formValues.password ?? '';
     const confirmPassword = formValues.confirmPassword ?? '';
 
-    console.log('Invio dati al server per registrazione:', { username, email, password, confirmPassword });
-
     this.authService.register(username, email, password, confirmPassword).subscribe({
       next: (response) => {
         if (response) {
-          console.log('Utente registrato con successo', response);
+          console.log('Utente registrato con successo');
           alert('Registrazione completata con successo!');
           this.router.navigate(['/login']);
         }
