@@ -11,10 +11,16 @@
           <a class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/chi-siamo">Chi siamo</a>
+          <a class="nav-link" routerLink="/immobili" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Le tue case</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/contatti">Contatti</a>
+          <a class="nav-link" routerLink="/annunci">I tuoi annunci</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/trattative">Le tue trattative</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()" style="cursor:pointer">Logout</a>
         </li>
       </ul>
     </div>

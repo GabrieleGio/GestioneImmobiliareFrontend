@@ -15,6 +15,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrls: ['./dettaglio-annuncio.component.scss']
 })
 export class DettaglioAnnuncioComponent implements OnInit {
+
   annuncio: any;
   apiUrl = 'http://localhost:8080';
   showForm = false;
@@ -41,7 +42,13 @@ export class DettaglioAnnuncioComponent implements OnInit {
   }
 
   apriForm() {
+    this.propostaForm.reset();
     this.showForm = true;
+  }
+
+  chiudiForm() {
+    this.showForm = false;
+    this.propostaForm.reset();
   }
 
   inviaProposta() {

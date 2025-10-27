@@ -2,35 +2,45 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface ImmobileDTO {
+export interface ImmobilePersonaleDTO {
+  idImmobile: number;
   titolo: string;
-  indirizzo: string;
+  descrizione: string;
   prezzo: number;
+  tipologia: string;
+  stato: string;
+  superficie: number;
+  indirizzo: string;
 }
 
-export interface Page<T> {
+export interface PageResponse<T> {
   content: T[];
-  totalElements: number;
   totalPages: number;
+  totalElements: number;
   size: number;
-  number: number; // pagina corrente (0-based)
+  number: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImmobileService {
-  private apiUrl = 'http://localhost:8080/utenti/paginati';
+  private apiUrl = 'http://localhost:8080/immobili/paginati';
 
   constructor(private http: HttpClient) {}
 
-  getImmobiliPaginati(page: number, size: number, sortBy: string, direction: string): Observable<Page<ImmobileDTO>> {
-    let params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString())
+  getImmobili(
+    page = 0,
+    size = 10,
+    sortBy = 'idImmobile',
+    direction: 'asc' | 'desc' = 'asc'
+  ): Observable<PageResponse<ImmobilePersonaleDTO>> {
+    const params = new HttpParams()
+      .set('page', page)
+      .set('size', size)
       .set('sortBy', sortBy)
       .set('direction', direction);
 
-    return this.http.get<Page<ImmobileDTO>>(this.apiUrl, { params });
+    return this.http.get<PageResponse<ImmobilePersonaleDTO>>(this.apiUrl, { params });
   }
 }
