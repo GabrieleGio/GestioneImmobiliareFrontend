@@ -6,13 +6,14 @@ import { DettaglioAnnuncioComponent } from './components/dettaglio-annuncio/dett
 import { ImmobiliComponent } from './components/immobili/immobili.component';
 import { TrattativeComponent } from './components/trattative/trattative.component';
 import { AnnunciComponent } from './components/annunci/annunci.component';
+import { authGuard } from './guards/auth.guard';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent},
-  { path: 'home', component: HomeComponent},
-  { path: 'dettaglio-annuncio/:id', component: DettaglioAnnuncioComponent },
-  { path: 'immobili', component: ImmobiliComponent},
-  { path: 'trattative', component: TrattativeComponent},
-  { path: 'annunci', component: AnnunciComponent}
+  { path: 'home', component: HomeComponent, canActivate: [authGuard]},
+  { path: 'dettaglio-annuncio/:id', component: DettaglioAnnuncioComponent, canActivate: [authGuard] },
+  { path: 'immobili', component: ImmobiliComponent, canActivate: [authGuard]},
+  { path: 'trattative', component: TrattativeComponent, canActivate: [authGuard]},
+  { path: 'annunci', component: AnnunciComponent, canActivate: [authGuard]}
 ];

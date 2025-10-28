@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [ReactiveFormsModule, RouterModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   submitted = false;
@@ -48,7 +48,7 @@ export class LoginComponent {
         if (response) {
           console.log('Utente loggato con successo');
 
-          localStorage.setItem('authToken', response.token);  // Salvataggio del token
+          this.authService.saveToken(response.token);
 
           this.router.navigate(['/home']);
         } else {
