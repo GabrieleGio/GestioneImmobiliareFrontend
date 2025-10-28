@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { catchError, of } from 'rxjs';
 import { AuthResponseDTO, AuthService } from '../../services/auth.service';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -20,7 +20,20 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
-  constructor(private authService: AuthService, private router: Router) {}
+  returnUrl: string = '/home';
+
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+
+    this.route.queryParams.subscribe(params => {
+      if (params['returnUrl']) {
+        this.returnUrl = params['returnUrl'];
+      }
+    });
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -47,10 +60,9 @@ export class LoginComponent {
       next: (response: AuthResponseDTO | null) => {
         if (response) {
           console.log('Utente loggato con successo');
-
           this.authService.saveToken(response.token);
 
-          this.router.navigate(['/home']);
+          this.router.navigate([this.returnUrl]);
         } else {
           alert('Errore nel login. Riprova.');
         }
