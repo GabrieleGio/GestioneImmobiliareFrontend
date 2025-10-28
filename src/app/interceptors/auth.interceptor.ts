@@ -19,17 +19,19 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   return next(clonedRequest).pipe(
-    catchError((error) => {
-      // Se il backend risponde 401, token scaduto o non valido
-      if (error.status === 401) {
-        alert('Sessione scaduta. Effettua nuovamente il login.');
-        // Rimuovo il token dal local storage
-        localStorage.removeItem('authToken');
-        // Reindirizzo al login
-        router.navigate(['/login']);
-      }
+  catchError((error) => {
+    if (error.status === 0) {
+      alert('Impossibile contattare il server. Riprova più tardi.');
+      localStorage.removeItem('authToken');
+      router.navigate(['/login']);
+    } else if (error.status === 401) {
+      alert('Sessione scaduta. Effettua nuovamente il login.');
+      localStorage.removeItem('authToken');
+      router.navigate(['/login']);
+    }
 
-      return throwError(() => error);
-    })
-  );
+    return throwError(() => error);
+  })
+);
+
 };

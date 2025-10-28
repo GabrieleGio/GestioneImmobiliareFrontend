@@ -25,7 +25,7 @@ export interface PageResponse<T> {
   providedIn: 'root'
 })
 export class ImmobileService {
-  private apiUrl = 'http://localhost:8080/immobili/paginati';
+  private apiUrl = 'http://localhost:8080/immobili/personali';
 
   constructor(private http: HttpClient) {}
 

@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { DettaglioAnnuncioComponent } from './components/dettaglio-annuncio/dettaglio-annuncio.component';
 import { ImmobiliComponent } from './components/immobili/immobili.component';
 import { TrattativeComponent } from './components/trattative/trattative.component';
+import { AnnunciComponent } from './components/annunci/annunci.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -12,5 +13,6 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'dettaglio-annuncio/:id', component: DettaglioAnnuncioComponent },
   { path: 'immobili', component: ImmobiliComponent},
-  { path: 'trattative', component: TrattativeComponent}
+  { path: 'trattative', component: TrattativeComponent},
+  { path: 'annunci', component: AnnunciComponent}
 ];
