@@ -16,6 +16,7 @@ import { AnnuncioPersonaleDTO, AnnuncioService, PageResponse } from '../../servi
 })
 
 export class AnnunciComponent {
+
     annunci: AnnuncioPersonaleDTO[] = [];
     totalPages = 0;
     currentPage = 0;
@@ -25,6 +26,10 @@ export class AnnunciComponent {
   
     ngOnInit(): void {
       this.loadAnnunci();
+    }
+
+    viewOffers(arg0: number) {
+      throw new Error('Method not implemented.');
     }
   
     loadAnnunci(page: number = 0): void {

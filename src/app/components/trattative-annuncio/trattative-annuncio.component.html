@@ -3,66 +3,64 @@
 <div class="container mt-5">
 
   <h1 class="text-center mb-4 text-primary fw-bold">
-    I miei annunci immobiliari
+    Trattative ricevute
   </h1>
 
   <p class="lead text-center text-muted mb-5">
-    Gestisci e visualizza i tuoi annunci
+    Accetta o rifiuta le trattative per questo annuncio
   </p>
 
   <div class="row g-4">
     <div 
       class="col-12 col-sm-6 col-md-4 col-lg-3"
-      *ngFor="let annuncio of annunci">
+      *ngFor="let trattativa of trattative">
 
       <div class="card shadow-sm border-0 h-100 announcement-card">
-
-        <div class="card-img-top-wrapper">
-          <img 
-            src="assets/images/placeholder.jpg"
-            class="card-img-top" 
-            alt="Immobile"
-            [routerLink]="['/dettaglio-annuncio', annuncio.idAnnuncio]"
-            style="cursor:pointer;">
-        </div>
 
         <div class="card-body d-flex flex-column justify-content-between">
           <div>
             <h5 class="card-title text-primary fw-bold mb-2">
-              <a [routerLink]="['/dettaglio-annuncio', annuncio.idAnnuncio]" 
-                 class="text-decoration-none text-primary">
-                {{ annuncio.titoloImmobile }}
-              </a>
+              Trattativa #{{ trattativa.idTrattativa }}
             </h5>
             <p class="card-text text-muted mb-2">
-              📍 {{ annuncio.indirizzo }}
+              Utente ID: {{ trattativa.idUtente }}
             </p>
             <p class="card-text fs-5 fw-semibold text-success">
-              💶 {{ annuncio.prezzo | currency:'EUR':'symbol':'1.0-0' }}
+              💶 Offerta: {{ trattativa.prezzoOfferto | currency:'EUR':'symbol':'1.0-0' }}
+            </p>
+            <p class="card-text small text-secondary mb-2">
+              Stato: {{ trattativa.stato }}<br>
+              Data proposta: {{ trattativa.dataProposta | date:'short' }}
+            </p>
+            <p class="card-text text-truncate">
+              Messaggio: {{ trattativa.messaggio }}
             </p>
           </div>
-
-          <div class="mt-3 small text-secondary">
-            <div>🗓️ {{ annuncio.dataPubblicazione | date:'shortDate' }}</div>
-          </div>
-          <div class="mt-3">
+          <!-- Bottoni Accetta/Rifiuta -->
+          <div class="d-flex justify-content-between mt-3">
             <button 
-              class="btn btn-outline-success w-100"
-              [routerLink]="['/trattative-annuncio', annuncio.idAnnuncio]"
-              [queryParams]="{ page: currentPage }">
-              Proposte
+              class="btn btn-success" 
+              (click)="accettaTrattativa(trattativa.idTrattativa)">
+              Accetta
+            </button>
+            <button 
+              class="btn btn-danger" 
+              (click)="rifiutaTrattativa(trattativa.idTrattativa)">
+              Rifiuta
             </button>
           </div>
+        </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Paginazione -->
   <div class="pagination-wrapper d-flex justify-content-center align-items-center mt-5">
     <button 
       class="btn btn-outline-primary me-2"
       [disabled]="currentPage === 0"
-      (click)="loadAnnunci(currentPage - 1)">
+      (click)="paginaPrecedente()">
       ◀ Precedente
     </button>
 
@@ -73,10 +71,8 @@
     <button 
       class="btn btn-outline-primary"
       [disabled]="currentPage >= totalPages - 1"
-      (click)="loadAnnunci(currentPage + 1)">
+      (click)="paginaSuccessiva()">
       Successiva ▶
     </button>
   </div>
-
-</div>
 
