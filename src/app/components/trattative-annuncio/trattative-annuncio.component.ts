@@ -58,12 +58,23 @@ export class TrattativeAnnuncioComponent implements OnInit {
       });
   }
 
-  accettaTrattativa(arg0: number) {
-    throw new Error('Method not implemented.');
+  accettaTrattativa(id: number): void {
+    // Aggiungere controlli
+    this.trattativaService.vendiTrattativa(id).subscribe({
+      next: (response) => {
+        alert('Trattativa conclusa con successo!');
+        this.loadTrattative();
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Errore nel concludere la trattativa');
+      },
+    });
   }
 
-  rifiutaTrattativa(arg0: number) {
-    throw new Error('Method not implemented.');
+  rifiutaTrattativa(id: number): void {
+    // Aggiungere logica per rifutare trattativa
+    console.log('Rifiutato idTrattativa:', id);
   }
   
   paginaPrecedente(): void {

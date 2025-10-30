@@ -32,6 +32,15 @@
         <div class="mb-3">
           <label for="messaggio" class="form-label">Messaggio (opzionale)</label>
           <textarea id="messaggio" class="form-control" formControlName="messaggio" rows="3"></textarea>
+          <div *ngIf="propostaForm.controls['messaggio'].invalid && propostaForm.controls['messaggio'].touched" class="text-danger">
+            Inserisci un messaggio valido
+            <div *ngIf="propostaForm.controls['messaggio'].hasError('minlength')">
+              Il messaggio deve contenere almeno 4 caratteri
+            </div>
+            <div *ngIf="propostaForm.controls['messaggio'].hasError('maxlength')">
+              Il messaggio può contenere al massimo 500 caratteri
+            </div>
+          </div>
         </div>
 
         <button type="submit" class="btn btn-primary" [disabled]="propostaForm.invalid">Invia Proposta</button>

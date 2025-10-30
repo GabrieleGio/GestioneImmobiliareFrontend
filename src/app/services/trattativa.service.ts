@@ -33,7 +33,8 @@ export interface PageResponse<T> {
 })
 export class TrattativaService {
   private apiUrl = 'http://localhost:8080/trattative/personali';
-  private apiUrl2 = 'http://localhost:8080/trattative/annuncio'
+  private apiUrl2 = 'http://localhost:8080/trattative/annuncio';
+  private apiUrl3 ='http://localhost:8080/trattative';
 
   constructor(private http: HttpClient) {}
 
@@ -69,5 +70,9 @@ export class TrattativaService {
       `${this.apiUrl2}/${idAnnuncio}`,
       { params }
     );
+  }
+
+  vendiTrattativa(id: number): Observable<any> {
+    return this.http.put(`${this.apiUrl3}/${id}/vendi`, {});
   }
 }

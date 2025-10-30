@@ -16,9 +16,9 @@ export class RegisterComponent {
   submitted = false;
 
   registerForm = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]),
     confirmPassword: new FormControl('', [Validators.required])
   }, { validators: passwordMatchValidator() });
 

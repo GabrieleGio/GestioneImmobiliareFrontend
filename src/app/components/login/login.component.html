@@ -16,6 +16,7 @@
     <div *ngIf="submitted && loginForm.controls.password.invalid" class="text-danger mt-1">
       <small *ngIf="loginForm.controls.password.errors?.['required']">Password richiesta</small>
       <small *ngIf="loginForm.controls.password.errors?.['minlength']">Minimo 6 caratteri</small>
+      <small *ngIf="loginForm.controls.password.errors?.['maxlength']">Massimo 255 caratteri</small>
     </div>
   </div>
 

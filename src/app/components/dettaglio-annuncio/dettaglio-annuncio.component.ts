@@ -37,7 +37,7 @@ export class DettaglioAnnuncioComponent implements OnInit {
 
     this.propostaForm = this.fb.group({
       prezzoOfferto: ['', [Validators.required, Validators.min(1)]],
-      messaggio: ['']
+      messaggio: ['', [Validators.minLength(4), Validators.maxLength(500)]]
     });
   }
 
