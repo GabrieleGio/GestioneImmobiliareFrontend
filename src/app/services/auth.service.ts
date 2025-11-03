@@ -14,7 +14,7 @@ export interface AuthResponseDTO {
 })
 export class AuthService {
 
-  private apiUrlLogin = 'http://localhost:8080/utenti/login';
+  private apiUrlLogin = 'http://localhost:8080/auth/login';
   private apiUrlRegister = 'http://localhost:8080/utenti/register';
   private tokenKey = 'auth_token';
 
