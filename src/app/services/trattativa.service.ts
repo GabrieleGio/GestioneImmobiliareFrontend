@@ -21,6 +21,10 @@ export interface TrattativaDTO {
   messaggio: string;
 }
 
+export interface TrattativaResponseDTO {
+  message: string;
+}
+
 export interface PageResponse<T> {
   content: T[];
   totalPages: number;
@@ -72,7 +76,7 @@ export class TrattativaService {
     );
   }
 
-  vendiTrattativa(id: number): Observable<any> {
-    return this.http.put(`${this.apiUrl3}/${id}/vendi`, {});
+  vendiTrattativa(id: number): Observable<TrattativaResponseDTO> {
+    return this.http.put<TrattativaResponseDTO>(`${this.apiUrl3}/${id}/vendi`, {});
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';  // Per recuperare l'ID dalla route
-import { TrattativaService, TrattativaDTO, PageResponse } from '../../services/trattativa.service';
+import { TrattativaService, TrattativaDTO, PageResponse, TrattativaResponseDTO } from '../../services/trattativa.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
@@ -59,14 +59,13 @@ export class TrattativeAnnuncioComponent implements OnInit {
   }
 
   accettaTrattativa(id: number): void {
-    // Aggiungere controlli
     this.trattativaService.vendiTrattativa(id).subscribe({
-      next: (response) => {
-        alert('Trattativa conclusa con successo!');
+      next: (response: TrattativaResponseDTO) => {
+        alert(response.message);
         this.loadTrattative();
       },
       error: (err) => {
-        console.error(err);
+        console.error('Errore nel concludere la trattativa:', err);
         alert('Errore nel concludere la trattativa');
       },
     });
