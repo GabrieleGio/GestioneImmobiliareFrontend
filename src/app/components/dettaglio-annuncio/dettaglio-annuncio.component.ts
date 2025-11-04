@@ -20,7 +20,7 @@ export class DettaglioAnnuncioComponent implements OnInit {
   annuncio: any;
   apiUrl = 'http://localhost:8080';
   showForm = false;
-  loggedInUserName: string | null = null;
+  loggedInUserId: number | null = null;
   propostaForm!: FormGroup;
 
   constructor(
@@ -38,7 +38,8 @@ export class DettaglioAnnuncioComponent implements OnInit {
         .subscribe((immobile: any) => this.annuncio.immobile = immobile);
     });
 
-    this.loggedInUserName = this.authService.getLoggedInUserName();
+    const userId = this.authService.getLoggedInUserId();
+    this.loggedInUserId = userId !== null ? Number(userId) : null;
 
     this.propostaForm = this.fb.group({
       prezzoOfferto: ['', [Validators.required, Validators.min(1)]],
@@ -47,7 +48,7 @@ export class DettaglioAnnuncioComponent implements OnInit {
   }
 
    isUserOwner(): boolean {
-    return this.loggedInUserName === this.annuncio.immobile.autoreUsername;
+    return this.loggedInUserId === this.annuncio.idCreatore;
   }
 
   apriForm() {

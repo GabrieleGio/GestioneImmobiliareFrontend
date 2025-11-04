@@ -30,7 +30,8 @@ export class HomeComponent implements OnInit {
     this.annuncioService.getAnnunci(page, this.pageSize, 'dataPubblicazione', 'desc')
       .subscribe({
         next: (data: PageResponse<AnnuncioHomeDTO>) => {
-          this.annunci = data.content;
+          // tolgo la possibilità di vedere gli annunci conclusi
+          this.annunci = data.content.filter(annuncio => annuncio.visibile);
           this.totalPages = data.totalPages;
           this.currentPage = data.number;
         },
