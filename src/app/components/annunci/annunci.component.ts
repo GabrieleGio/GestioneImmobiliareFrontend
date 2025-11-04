@@ -27,10 +27,6 @@ export class AnnunciComponent {
     ngOnInit(): void {
       this.loadAnnunci();
     }
-
-    viewOffers(arg0: number) {
-      throw new Error('Method not implemented.');
-    }
   
     loadAnnunci(page: number = 0): void {
       this.annuncioService.getAnnunciPersonali(page, this.pageSize, 'dataPubblicazione', 'desc')

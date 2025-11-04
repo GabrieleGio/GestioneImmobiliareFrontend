@@ -17,7 +17,9 @@
       <li>🗓️ Pubblicato il: {{ annuncio.dataPubblicazione | date:'longDate' }}</li>
     </ul>
 
-    <button class="btn btn-success mt-4" (click)="apriForm()">Fai una proposta</button>
+    <!-- FIXME UserOwner controlla l'username, ma nel component posso accedere solo all'id. Modificare jwt o component -->
+    <!-- Mostra il pulsante "Fai una proposta" solo se l'utente non è l'autore dell'annuncio -->
+    <button *ngIf="!isUserOwner()" class="btn btn-success mt-4" (click)="apriForm()">Fai una proposta</button>
 
     <div *ngIf="showForm" class="mt-4 text-start">
       <form [formGroup]="propostaForm" (ngSubmit)="inviaProposta()">

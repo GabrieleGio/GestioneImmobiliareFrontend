@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs';
 import { of } from 'rxjs';
+import * as jwt_decode from 'jwt-decode';
 
 export interface AuthResponseDTO {
   token: string;
@@ -62,5 +63,19 @@ export class AuthService {
 
   removeToken(): void {
     localStorage.removeItem(this.tokenKey);
+  }
+
+  getLoggedInUserName(): string | null {
+    const token = this.getToken();
+    if (token) {
+      try {
+        const decodedToken: any = (jwt_decode as any)(token);
+        return decodedToken?.sub || null;  // 'sub' è il campo che contiene l'username
+      } catch (error) {
+        console.error('Errore nella decodifica del token', error);
+        return null;
+      }
+    }
+    return null;
   }
 }

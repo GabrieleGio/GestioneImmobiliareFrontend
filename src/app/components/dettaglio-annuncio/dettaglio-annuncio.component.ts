@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dettaglio-annuncio',
@@ -19,12 +20,14 @@ export class DettaglioAnnuncioComponent implements OnInit {
   annuncio: any;
   apiUrl = 'http://localhost:8080';
   showForm = false;
+  loggedInUserName: string | null = null;
   propostaForm!: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -35,10 +38,16 @@ export class DettaglioAnnuncioComponent implements OnInit {
         .subscribe((immobile: any) => this.annuncio.immobile = immobile);
     });
 
+    this.loggedInUserName = this.authService.getLoggedInUserName();
+
     this.propostaForm = this.fb.group({
       prezzoOfferto: ['', [Validators.required, Validators.min(1)]],
       messaggio: ['', [Validators.minLength(4), Validators.maxLength(500)]]
     });
+  }
+
+   isUserOwner(): boolean {
+    return this.loggedInUserName === this.annuncio.immobile.autoreUsername;
   }
 
   apriForm() {
