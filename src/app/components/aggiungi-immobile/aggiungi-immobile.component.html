@@ -1,0 +1,119 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5 mb-5">
+  <h2 class="text-center mb-4 text-primary fw-bold">
+    ➕ Aggiungi un nuovo immobile
+  </h2>
+
+  <form 
+    class="card shadow-sm p-4 mx-auto" 
+    style="max-width: 700px;" 
+    [formGroup]="immobileForm"
+    (ngSubmit)="onSubmit()">
+
+    <!-- Titolo -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Titolo</label>
+      <input 
+        type="text" 
+        class="form-control"
+        formControlName="titolo"
+        placeholder="Esempio: Appartamento in centro">
+      <div 
+        class="text-danger small mt-1" 
+        *ngIf="immobileForm.get('titolo')?.invalid && immobileForm.get('titolo')?.touched">
+        Il titolo è obbligatorio.
+      </div>
+    </div>
+
+    <!-- Descrizione -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Descrizione</label>
+      <textarea 
+        rows="3"
+        class="form-control"
+        formControlName="descrizione"
+        placeholder="Descrivi l'immobile..."></textarea>
+    </div>
+
+    <!-- Prezzo -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Prezzo (€)</label>
+      <input 
+        type="number" 
+        class="form-control"
+        formControlName="prezzo"
+        placeholder="Inserisci il prezzo">
+      <div 
+        class="text-danger small mt-1" 
+        *ngIf="immobileForm.get('prezzo')?.invalid && immobileForm.get('prezzo')?.touched">
+        Inserisci un prezzo valido.
+      </div>
+    </div>
+
+    <!-- Tipologia -->
+<div class="mb-3">
+  <label class="form-label fw-semibold">Tipologia</label>
+  <select class="form-select" formControlName="tipologia">
+    <option value="">-- Seleziona una tipologia --</option>
+    <option *ngFor="let tipo of tipologie" [value]="tipo">
+      {{ tipo | titlecase }}
+    </option>
+  </select>
+</div>
+
+<!-- Stato -->
+<div class="mb-3">
+  <label class="form-label fw-semibold">Stato</label>
+  <select class="form-select" formControlName="stato">
+    <option value="">-- Seleziona lo stato --</option>
+    <option *ngFor="let stato of stati" [value]="stato">
+      {{ stato | titlecase }}
+    </option>
+  </select>
+</div>
+
+
+    <!-- Superficie -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Superficie (m²)</label>
+      <input 
+        type="number"
+        class="form-control"
+        formControlName="superficie"
+        placeholder="Inserisci la superficie">
+    </div>
+
+    <!-- Indirizzo -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Indirizzo</label>
+      <input 
+        type="text"
+        class="form-control"
+        formControlName="indirizzo"
+        placeholder="Inserisci l'indirizzo completo">
+    </div>
+
+    <!-- Submit -->
+    <div class="d-flex justify-content-center mt-4">
+      <button 
+        type="submit" 
+        class="btn btn-primary btn-lg"
+        [disabled]="immobileForm.invalid || isSubmitting">
+        {{ isSubmitting ? 'Salvataggio...' : '✅ Salva immobile' }}
+      </button>
+    </div>
+
+    <!-- Messaggi -->
+    <div class="text-center mt-3">
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+  </form>
+</div>
+

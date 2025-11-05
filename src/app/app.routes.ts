@@ -8,6 +8,7 @@ import { TrattativeComponent } from './components/trattative/trattative.componen
 import { AnnunciComponent } from './components/annunci/annunci.component';
 import { authGuard } from './guards/auth.guard';
 import { TrattativeAnnuncioComponent } from './components/trattative-annuncio/trattative-annuncio.component';
+import { AggiungiImmobileComponent } from './components/aggiungi-immobile/aggiungi-immobile.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
@@ -17,5 +18,6 @@ export const routes: Routes = [
   { path: 'immobili', component: ImmobiliComponent, canActivate: [authGuard]},
   { path: 'trattative', component: TrattativeComponent, canActivate: [authGuard]},
   { path: 'annunci', component: AnnunciComponent, canActivate: [authGuard]},
-  { path: 'trattative-annuncio/:id', component: TrattativeAnnuncioComponent, canActivate: [authGuard]}
+  { path: 'trattative-annuncio/:id', component: TrattativeAnnuncioComponent, canActivate: [authGuard]},
+  { path: 'aggiungi-immobile', component: AggiungiImmobileComponent, canActivate: [authGuard]},
 ];

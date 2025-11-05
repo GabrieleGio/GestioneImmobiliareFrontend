@@ -13,6 +13,18 @@ export interface ImmobilePersonaleDTO {
   indirizzo: string;
 }
 
+export interface ImmobileDTO {
+  idImmobile: number;
+  titolo: string;
+  descrizione: string;
+  prezzo: number;
+  tipologia: string;
+  stato: string;
+  superficie: number;
+  indirizzo: string;
+  proprietarioId: number;
+}
+
 export interface PageResponse<T> {
   content: T[];
   totalPages: number;
@@ -26,6 +38,7 @@ export interface PageResponse<T> {
 })
 export class ImmobileService {
   private apiUrl = 'http://localhost:8080/immobili/personali';
+  private apiUrlPost = 'http://localhost:8080/immobili';
 
   constructor(private http: HttpClient) {}
 
@@ -42,5 +55,9 @@ export class ImmobileService {
       .set('direction', direction);
 
     return this.http.get<PageResponse<ImmobilePersonaleDTO>>(this.apiUrl, { params });
+  }
+
+  aggiungiImmobile(immobile: Omit<ImmobileDTO, 'idImmobile' | 'proprietarioId'>): Observable<ImmobileDTO> {
+    return this.http.post<ImmobileDTO>(this.apiUrlPost, immobile);
   }
 }
