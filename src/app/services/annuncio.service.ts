@@ -37,6 +37,7 @@ export interface PageResponse<T> {
 export class AnnuncioService {
   private apiUrl = 'http://localhost:8080/annunci/paginate';
   private apiUrl2 = 'http://localhost:8080/annunci/personali';
+  private apiUrl3 = 'http://localhost:8080/annunci/pubblica';
 
   constructor(private http: HttpClient) {}
 
@@ -69,4 +70,9 @@ export class AnnuncioService {
     
       return this.http.get<PageResponse<AnnuncioPersonaleDTO>>(this.apiUrl2, {params});
   }
+
+  pubblicaAnnuncio(idImmobile: number): Observable<AnnuncioHomeDTO> {
+    return this.http.post<AnnuncioHomeDTO>(`${this.apiUrl3}/${idImmobile}`, null);
+  }
+
 }

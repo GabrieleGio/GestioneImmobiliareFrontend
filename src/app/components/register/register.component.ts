@@ -44,19 +44,26 @@ export class RegisterComponent {
     const password = formValues.password ?? '';
     const confirmPassword = formValues.confirmPassword ?? '';
 
-    this.authService.register(username, email, password, confirmPassword).subscribe({
-      next: (response) => {
-        if (response) {
-          console.log('Utente registrato con successo');
-          alert('Registrazione completata con successo!');
-          this.router.navigate(['/login']);
-        }
-      },
-      error: (err) => {
-        console.error('Errore durante la registrazione', err);
-        alert('Errore durante la registrazione: ' + (err?.message || 'Errore sconosciuto'));
+  this.authService.register(username, email, password, confirmPassword).subscribe({
+    next: (response) => {
+      console.log('Utente registrato con successo');
+      alert('Registrazione completata con successo!');
+      this.router.navigate(['/login']);
+    },
+    error: (err) => {
+      console.error('Errore durante la registrazione', err);
+
+      if (err.status === 400) {
+        alert('Dati non validi o email già in uso');
+      } else if (err.status === 409) {
+        alert('Username o email già registrati');
+      } else if (err.status === 500) {
+        alert('Errore interno al server. Riprova più tardi.');
+      } else {
+        alert('Errore sconosciuto: ' + (err?.message || err.statusText));
       }
-    });
+    }
+  });
   }
 }
 

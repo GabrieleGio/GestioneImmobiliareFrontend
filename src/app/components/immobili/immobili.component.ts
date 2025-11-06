@@ -6,6 +6,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { ImmobilePersonaleDTO, ImmobileService, PageResponse } from '../../services/immobile.service';
+import { AnnuncioService } from '../../services/annuncio.service';
 
 @Component({
   selector: 'app-immobili',
@@ -20,7 +21,7 @@ export class ImmobiliComponent implements OnInit {
   currentPage = 0;
   pageSize = 10;
 
-  constructor(private immobileService: ImmobileService) {}
+  constructor(private immobileService: ImmobileService, private annuncioService: AnnuncioService) {}
 
   ngOnInit(): void {
     this.loadImmobili();
@@ -37,6 +38,22 @@ export class ImmobiliComponent implements OnInit {
         error: (err) => console.error('Errore nel caricamento degli immobili:', err)
       });
   }
+
+  pubblicaAnnuncio(immobile: ImmobilePersonaleDTO): void {
+    const conferma = confirm(`Vuoi davvero pubblicare l'annuncio per "${immobile.titolo}"?`);
+    if (!conferma) return;
+
+    this.annuncioService.pubblicaAnnuncio(immobile.idImmobile).subscribe({
+      next: (annuncio) => {
+        alert('Annuncio pubblicato con successo!');
+        immobile.hasAnnuncio = true;
+      },
+      error: (err) => {
+        alert(`Errore nella pubblicazione: ${err.message || err.statusText}`);
+      }
+    });
+  }
+
 
   paginaPrecedente(): void {
     if (this.currentPage > 0) {

@@ -11,6 +11,7 @@ export interface ImmobilePersonaleDTO {
   stato: string;
   superficie: number;
   indirizzo: string;
+  hasAnnuncio?: boolean;
 }
 
 export interface ImmobileDTO {

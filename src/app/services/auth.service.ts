@@ -23,30 +23,19 @@ export class AuthService {
 
   login(email: string, password: string) {
     const loginData = { email, password };
-
-    return this.http.post<AuthResponseDTO>(this.apiUrlLogin, loginData).pipe(
-      catchError((error) => {
-        console.error('Errore durante il login', error);
-        return of(null);
-      })
-    );
+    return this.http.post<AuthResponseDTO>(this.apiUrlLogin, loginData);
   }
 
   register(username: string, email: string, password: string, confirmPassword: string) {
     if (password !== confirmPassword) {
-      console.error('Le password non corrispondono');
-      return of(null);
+      return of({ error: 'Le password non corrispondono' });
     }
 
     const registerData = { username, email, password, confirmPassword };
 
-    return this.http.post(this.apiUrlRegister, registerData).pipe(
-      catchError((error) => {
-        console.error('Errore durante la registrazione', error);
-        return of(null);
-      })
-    );
+    return this.http.post(this.apiUrlRegister, registerData);
   }
+
 
   isAuthenticated(): boolean {
     const token = this.getToken();

@@ -57,19 +57,20 @@ export class LoginComponent {
     }
 
     this.authService.login(email, password).subscribe({
-      next: (response: AuthResponseDTO | null) => {
-        if (response) {
-          console.log('Utente loggato con successo');
-          this.authService.saveToken(response.token);
-
-          this.router.navigate([this.returnUrl]);
-        } else {
-          alert('Errore nel login. Riprova.');
-        }
+      next: (response: AuthResponseDTO) => {
+        this.authService.saveToken(response.token);
+        this.router.navigate([this.returnUrl]);
       },
       error: (err) => {
         console.error('Errore durante il login', err);
-        alert('Errore durante il login: ' + (err?.message || 'Errore sconosciuto'));
+
+        if (err.status === 400) {
+          alert('Credenziali non valide');
+        } else if (err.status === 404) {
+          alert('Endpoint non trovato (404)');
+        } else {
+          alert('Errore sconosciuto: ' + (err.message || err.statusText));
+        }
       }
     });
   }
