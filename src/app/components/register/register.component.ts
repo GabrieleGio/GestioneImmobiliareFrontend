@@ -54,11 +54,11 @@ export class RegisterComponent {
       console.error('Errore durante la registrazione', err);
 
       if (err.status === 400) {
-        alert('Dati non validi o email già in uso');
+        alert('Dati non validi');
       } else if (err.status === 409) {
-        alert('Username o email già registrati');
+        alert('Username o email già in uso');
       } else if (err.status === 500) {
-        alert('Errore interno al server. Riprova più tardi.');
+        alert('Errore interno al server. Riprova più tardi');
       } else {
         alert('Errore sconosciuto: ' + (err?.message || err.statusText));
       }
