@@ -32,7 +32,7 @@ export class ImmobiliComponent implements OnInit {
       .subscribe({
         next: (data: PageResponse<ImmobilePersonaleDTO>) => {
           this.immobili = data.content;
-          this.totalPages = data.totalPages;
+          this.totalPages = data.totalPages || 1;
           this.currentPage = data.number;
         },
         error: (err) => console.error('Errore nel caricamento degli immobili:', err)

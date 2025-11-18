@@ -31,7 +31,7 @@ export class TrattativeComponent {
         .subscribe({
           next: (data: PageResponse<TrattativaPersonaleDTO>) => {
             this.trattative = data.content;
-            this.totalPages = data.totalPages;
+            this.totalPages = data.totalPages || 1;
             this.currentPage = data.number;
           },
           error: (err) => console.error('Errore nel caricamento delle trattative:', err)

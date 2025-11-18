@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
         next: (data: PageResponse<AnnuncioHomeDTO>) => {
           // tolgo la possibilità di vedere gli annunci conclusi
           this.annunci = data.content.filter(annuncio => annuncio.visibile);
-          this.totalPages = data.totalPages;
+          this.totalPages = data.totalPages || 1;
           this.currentPage = data.number;
         },
         error: (err) => console.error('Errore nel caricamento annunci:', err)

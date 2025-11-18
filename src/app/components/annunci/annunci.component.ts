@@ -33,7 +33,7 @@ export class AnnunciComponent {
         .subscribe({
           next: (data: PageResponse<AnnuncioPersonaleDTO>) => {
             this.annunci = data.content;
-            this.totalPages = data.totalPages;
+            this.totalPages = data.totalPages || 1;
             this.currentPage = data.number;
           },
           error: (err) => console.error('Errore nel caricamento annunci:', err)
