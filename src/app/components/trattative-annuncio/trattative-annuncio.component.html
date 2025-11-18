@@ -37,7 +37,7 @@
             </p>
           </div>
           <!-- Bottoni Accetta/Rifiuta -->
-          <div class="d-flex justify-content-between mt-3">
+          <div class="d-flex justify-content-between mt-3" *ngIf="trattativa.stato === 'IN_ATTESA'">
             <button 
               class="btn btn-success" 
               (click)="accettaTrattativa(trattativa.idTrattativa)">

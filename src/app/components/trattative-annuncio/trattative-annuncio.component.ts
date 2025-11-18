@@ -72,8 +72,16 @@ export class TrattativeAnnuncioComponent implements OnInit {
   }
 
   rifiutaTrattativa(id: number): void {
-    // Aggiungere logica per rifutare trattativa
-    console.log('Rifiutato idTrattativa:', id);
+    this.trattativaService.rifiutaTrattativa(id).subscribe({
+      next: (response: TrattativaResponseDTO) => {
+        alert(response.message);
+        this.loadTrattative();
+      },
+      error: (err) => {
+        console.error('Errore nel rifiutare la trattativa:', err);
+        alert('Errore nel rifiutare la trattativa');
+      },
+    });
   }
   
   paginaPrecedente(): void {

@@ -79,4 +79,8 @@ export class TrattativaService {
   vendiTrattativa(id: number): Observable<TrattativaResponseDTO> {
     return this.http.put<TrattativaResponseDTO>(`${this.apiUrl3}/${id}/vendi`, {});
   }
+
+  rifiutaTrattativa(id: number): Observable<TrattativaResponseDTO> {
+    return this.http.put<TrattativaResponseDTO>(`${this.apiUrl3}/${id}/rifiuta`, {});
+  }
 }

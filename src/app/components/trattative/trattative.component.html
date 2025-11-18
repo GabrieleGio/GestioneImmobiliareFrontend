@@ -33,7 +33,11 @@
             </p>
             <p class="card-text small text-secondary mb-2">
               Data proposta: {{ trattativa.dataProposta | date:'short' }}
-              Stato: <span [ngClass]="{'text-danger': trattativa.stato === 'CONCLUSA'}">{{ trattativa.stato }}</span><br>
+              Stato: <span [ngClass]="{
+                'text-danger': trattativa.stato === 'CONCLUSA' || trattativa.stato === 'RIFIUTATA'
+              }">
+                {{ trattativa.stato }}
+              </span><br>
             </p>
           </div>
         </div>
