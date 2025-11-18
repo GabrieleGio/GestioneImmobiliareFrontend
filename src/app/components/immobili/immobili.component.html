@@ -10,7 +10,11 @@
     Gestisci e visualizza i tuoi immobili
   </p>
 
-  <div class="row g-4">
+  <div *ngIf="immobili.length === 0" class="text-center text-muted">
+    <p>Non hai ancora immobili. Aggiungine uno!</p>
+  </div>
+
+  <div class="row g-4" *ngIf="immobili.length > 0">
     <div 
       class="col-12 col-sm-6 col-md-4 col-lg-3"
       *ngFor="let immobile of immobili">

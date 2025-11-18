@@ -10,7 +10,11 @@
     Scopri le migliori opportunità selezionate per te
   </p>
 
-  <div class="row g-4">
+  <div *ngIf="annunci.length === 0" class="text-center text-muted">
+    <p>Non ci sono ancora annunci! Aspetta che qualcuno pubblichi un annuncio o pubblica un tuo immobile!</p>
+  </div>
+
+  <div class="row g-4" *ngIf="annunci.length > 0">
     <div 
       class="col-12 col-sm-6 col-md-4 col-lg-3"
       *ngFor="let annuncio of annunci">
